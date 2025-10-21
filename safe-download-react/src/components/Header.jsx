@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { FiSettings, FiLogOut, FiKey, FiUser, FiEdit3 } from "react-icons/fi";
+import { FiSettings, FiLogOut, FiKey, FiUser, FiEdit3, FiEye, FiEyeOff } from "react-icons/fi";
 
 export default function Header() {
   const navigate = useNavigate();
@@ -29,6 +29,8 @@ export default function Header() {
   });
   const [loginMessage, setLoginMessage] = useState("");
   const [loginMessageType, setLoginMessageType] = useState(""); // "success" hoặc "error"
+  const [showReportFeedback, setShowReportFeedback] = useState(true);
+  const [showConfirmToggle, setShowConfirmToggle] = useState(false);
 
 
   // ✅ Kiểm tra token khi load lại trang
@@ -37,6 +39,12 @@ export default function Header() {
     setIsAdmin(!!token);
     // Load thông tin admin khi component mount
     loadAdminInfo();
+    
+    // Load toggle state from localStorage
+    const savedState = localStorage.getItem("showReportFeedback");
+    if (savedState !== null) {
+      setShowReportFeedback(JSON.parse(savedState));
+    }
   }, []);
 
   // 🔐 Đăng nhập admin
@@ -81,6 +89,32 @@ export default function Header() {
     setIsAdmin(false);
     alert("👋 Đã đăng xuất!");
     navigate("/");
+  };
+
+  const toggleReportFeedback = () => {
+    setShowConfirmToggle(true);
+  };
+
+  const confirmToggle = () => {
+    const newState = !showReportFeedback;
+    setShowReportFeedback(newState);
+    localStorage.setItem("showReportFeedback", JSON.stringify(newState));
+    
+    // Trigger re-render of Navigation component
+    window.dispatchEvent(new CustomEvent('toggleReportFeedback', { detail: newState }));
+    
+    // Force re-render by dispatching a storage event
+    window.dispatchEvent(new StorageEvent('storage', {
+      key: 'showReportFeedback',
+      newValue: JSON.stringify(newState),
+      oldValue: JSON.stringify(showReportFeedback)
+    }));
+    
+    setShowConfirmToggle(false);
+  };
+
+  const cancelToggle = () => {
+    setShowConfirmToggle(false);
   };
 
   // 👤 Load thông tin admin
@@ -252,6 +286,22 @@ export default function Header() {
                 onMouseLeave={(e) => (e.target.style.color = "#b84e00")}
               >
                 <FiKey />
+              </button>
+              <button
+                onClick={toggleReportFeedback}
+                title={showReportFeedback ? "Ẩn Báo cáo & Phản hồi" : "Hiện Báo cáo & Phản hồi"}
+                style={{
+                  background: "none",
+                  border: "none",
+                  cursor: "pointer",
+                  fontSize: 24,
+                  color: showReportFeedback ? "#28a745" : "#dc3545",
+                  transition: "transform 0.2s ease, color 0.2s ease",
+                }}
+                onMouseEnter={(e) => (e.target.style.color = showReportFeedback ? "#1e7e34" : "#c82333")}
+                onMouseLeave={(e) => (e.target.style.color = showReportFeedback ? "#28a745" : "#dc3545")}
+              >
+                {showReportFeedback ? <FiEye /> : <FiEyeOff />}
               </button>
               <button
                 onClick={handleLogout}
@@ -955,6 +1005,108 @@ export default function Header() {
               </button>
             </div>
           </form>
+        </div>
+      )}
+
+      {/* 🔒 Modal xác nhận toggle Report/Feedback */}
+      {showConfirmToggle && (
+        <div
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            background: "rgba(0, 0, 0, 0.5)",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            zIndex: 9999,
+          }}
+        >
+          <div
+            style={{
+              background: "white",
+              padding: "30px",
+              borderRadius: "15px",
+              boxShadow: "0 10px 30px rgba(0,0,0,0.3)",
+              maxWidth: "400px",
+              textAlign: "center",
+              border: "3px solid #f2c94c"
+            }}
+          >
+            <div style={{ fontSize: "48px", marginBottom: "15px" }}>
+              {showReportFeedback ? "👁️‍🗨️" : "👁️"}
+            </div>
+            <h3 style={{ 
+              color: "#8c3500", 
+              marginBottom: "15px",
+              fontSize: "20px",
+              fontWeight: "bold"
+            }}>
+              {showReportFeedback ? "Ẩn Báo cáo & Phản hồi" : "Hiện Báo cáo & Phản hồi"}
+            </h3>
+            <p style={{ 
+              color: "#666", 
+              marginBottom: "25px",
+              lineHeight: "1.5"
+            }}>
+              {showReportFeedback 
+                ? "Bạn có chắc chắn muốn ẩn các mục 'Báo cáo' và 'Phản hồi' khỏi Navigation? Tất cả người dùng sẽ không thấy các mục này."
+                : "Bạn có chắc chắn muốn hiện các mục 'Báo cáo' và 'Phản hồi' trong Navigation? Tất cả người dùng sẽ thấy các mục này."
+              }
+            </p>
+            <div style={{ display: "flex", gap: "15px", justifyContent: "center" }}>
+              <button
+                onClick={cancelToggle}
+                style={{
+                  padding: "10px 20px",
+                  background: "#6c757d",
+                  color: "white",
+                  border: "none",
+                  borderRadius: "8px",
+                  cursor: "pointer",
+                  fontSize: "14px",
+                  fontWeight: "bold",
+                  transition: "all 0.2s ease"
+                }}
+                onMouseEnter={(e) => {
+                  e.target.style.background = "#5a6268";
+                  e.target.style.transform = "translateY(-1px)";
+                }}
+                onMouseLeave={(e) => {
+                  e.target.style.background = "#6c757d";
+                  e.target.style.transform = "translateY(0)";
+                }}
+              >
+                ❌ Hủy
+              </button>
+              <button
+                onClick={confirmToggle}
+                style={{
+                  padding: "10px 20px",
+                  background: showReportFeedback ? "#dc3545" : "#28a745",
+                  color: "white",
+                  border: "none",
+                  borderRadius: "8px",
+                  cursor: "pointer",
+                  fontSize: "14px",
+                  fontWeight: "bold",
+                  transition: "all 0.2s ease"
+                }}
+                onMouseEnter={(e) => {
+                  e.target.style.background = showReportFeedback ? "#c82333" : "#1e7e34";
+                  e.target.style.transform = "translateY(-1px)";
+                }}
+                onMouseLeave={(e) => {
+                  e.target.style.background = showReportFeedback ? "#dc3545" : "#28a745";
+                  e.target.style.transform = "translateY(0)";
+                }}
+              >
+                {showReportFeedback ? "✅ Ẩn ngay" : "✅ Hiện ngay"}
+              </button>
+            </div>
+          </div>
         </div>
       )}
     </>

@@ -528,7 +528,7 @@ export function ColumnHeader({ column, onDelete, onEdit, isAdmin, isLoading, hea
           }}
         />
       ) : (
-        <span style={{ display: 'block', paddingRight: '80px' }}>
+        <span style={{ display: 'block', textAlign: 'center' }}>
           {column.label}
         </span>
       )}

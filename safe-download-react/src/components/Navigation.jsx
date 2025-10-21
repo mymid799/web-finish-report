@@ -1,8 +1,38 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 
 export default function Navigation() {
   const location = useLocation();
+  const [showReportFeedback, setShowReportFeedback] = useState(true);
+
+  useEffect(() => {
+    // Load toggle state from localStorage
+    const savedState = localStorage.getItem("showReportFeedback");
+    if (savedState !== null) {
+      setShowReportFeedback(JSON.parse(savedState));
+    }
+
+    // Listen for toggle events from Header
+    const handleToggleEvent = (event) => {
+      setShowReportFeedback(event.detail);
+    };
+
+    // Listen for storage changes
+    const handleStorageChange = (event) => {
+      if (event.key === 'showReportFeedback') {
+        const newValue = event.newValue ? JSON.parse(event.newValue) : true;
+        setShowReportFeedback(newValue);
+      }
+    };
+
+    window.addEventListener('toggleReportFeedback', handleToggleEvent);
+    window.addEventListener('storage', handleStorageChange);
+    
+    return () => {
+      window.removeEventListener('toggleReportFeedback', handleToggleEvent);
+      window.removeEventListener('storage', handleStorageChange);
+    };
+  }, []);
 
   const navItems = [
     { path: "/", label: "🏠 Home", icon: "🏠" },
@@ -11,8 +41,10 @@ export default function Navigation() {
     { path: "/tools", label: "🛠️ Tools", icon: "🛠️" },
     { path: "/free-antivirus", label: "🛡️ Antivirus", icon: "🛡️" },
     { path: "/virustotal-scan", label: "🔍 Quét Link", icon: "🔍" },
-    { path: "/report", label: "📝 Báo cáo", icon: "📝" },
-    { path: "/feedback-status", label: "📊 Phản hồi", icon: "📊" }
+    ...(showReportFeedback ? [
+      { path: "/report", label: "📝 Báo cáo", icon: "📝" },
+      { path: "/feedback-status", label: "📊 Phản hồi", icon: "📊" }
+    ] : [])
   ];
 
   const isActive = (path) => {

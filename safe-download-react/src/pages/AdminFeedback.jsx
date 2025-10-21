@@ -913,7 +913,7 @@ const thStyle = {
   background: "#ffe08a",
   color: "#000",
   padding: "8px 12px",
-  textAlign: "left",
+  textAlign: "center",
   fontWeight: "bold",
 };
 

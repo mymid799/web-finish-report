@@ -17,7 +17,7 @@ export default function DataTable({ columns, data }) {
               <th
                 key={col.key}
                 style={{
-                  textAlign: "left",
+                  textAlign: "center",
                   padding: "10px 12px",
                   border: "1px solid #bdbdbd", // 🔹 Viền rõ ràng
                   background: "#f8f4e3", // 🔸 Nền nhẹ như hình mẫu

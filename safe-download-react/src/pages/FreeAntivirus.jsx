@@ -438,7 +438,7 @@ export default function FreeAntivirus() {
         <table className="enhanced-table">
           <thead>
             <tr>
-              {columns.map((col) => (
+              {columns.map((col, index) => (
                 <ColumnHeader
                   key={col.key}
                   column={col}
@@ -446,6 +446,7 @@ export default function FreeAntivirus() {
                   onEdit={handleEditColumn}
                   isAdmin={isAdmin}
                   isLoading={isLoading}
+                  headerStyle={index === 0 ? thStyleFirst : thStyle}
                 />
               ))}
               {isAdmin && <th style={thStyle}>Thao tác</th>}
@@ -897,7 +898,16 @@ const thStyle = {
   background: "#ffe08a",
   color: "#000",
   padding: "8px 12px",
-  textAlign: "left",
+  textAlign: "center",
+  fontWeight: "bold",
+};
+
+const thStyleFirst = {
+  border: "1px solid #e2e8f0",
+  background: "#ffe08a",
+  color: "#000",
+  padding: "8px 12px",
+  textAlign: "center",
   fontWeight: "bold",
 };
 const tdStyle = {

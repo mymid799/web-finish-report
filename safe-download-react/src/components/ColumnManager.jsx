@@ -481,7 +481,7 @@ export const deleteColumn = async (columnKey, { columns, setColumns, data, setDa
 };
 
 // Component để render header với 2 nút riêng biệt
-export function ColumnHeader({ column, onDelete, onEdit, isAdmin, isLoading }) {
+export function ColumnHeader({ column, onDelete, onEdit, isAdmin, isLoading, headerStyle }) {
   const [isEditing, setIsEditing] = useState(false);
   const [editValue, setEditValue] = useState(column.label);
 
@@ -507,7 +507,7 @@ export function ColumnHeader({ column, onDelete, onEdit, isAdmin, isLoading }) {
   };
 
   return (
-    <th className="column-header" style={{ position: 'relative' }}>
+    <th className="column-header" style={{ position: 'relative', ...headerStyle }}>
       {isEditing ? (
         <input
           type="text"

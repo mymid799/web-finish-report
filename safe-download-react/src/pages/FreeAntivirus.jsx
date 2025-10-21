@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import ColumnManager, { ColumnHeader, deleteColumn } from "../components/ColumnManager";
 import UrlCell from "../components/UrlCell";
 import SmartTextCell from "../components/SmartTextCell";
-import AdminBitOptionsButton from "../components/AdminBitOptionsButton";
 import BitOptionsDropdown from "../components/BitOptionsDropdown";
 import "../styles/table.css";
 
@@ -305,13 +304,6 @@ export default function FreeAntivirus() {
 
       {isAdmin && (
         <div className="control-buttons">
-          <AdminBitOptionsButton 
-            onOptionSelect={(option) => {
-              console.log('Selected bit option:', option);
-              alert(`Đã chọn: ${option.label}\nMô tả: ${option.description}`);
-            }}
-          />
-          
           <button
             onClick={() => setShowAddColumnModal(true)}
             className="btn-add-column"
@@ -603,20 +595,20 @@ export default function FreeAntivirus() {
                   <td key={col.key} style={tdStyle}>
                     {col.type === 'url' ? (
                         <UrlCell
-                        isAdmin={isAdmin}
-                        row={row}
-                        idx={idx}
+                          isAdmin={isAdmin}
+                          row={row}
+                          idx={idx}
                           type={col.key}
-                        columnKey={col.key}
-                        handleChange={handleChange}
-                      />
-                    ) : (
-                      <SmartTextCell
-                        isAdmin={isAdmin}
-                        value={row[col.key]}
-                        onChange={(v) => handleChange(idx, col.key, v)}
-                      />
-                    )}
+                          columnKey={col.key}
+                          handleChange={handleChange}
+                        />
+                      ) : (
+                        <SmartTextCell
+                          isAdmin={isAdmin}
+                          value={row[col.key]}
+                          onChange={(v) => handleChange(idx, col.key, v)}
+                        />
+                      )}
                   </td>
                 ))}
 

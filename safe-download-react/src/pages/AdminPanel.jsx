@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import DynamicColumnManager from "../components/DynamicColumnManager";
 import DynamicDataEditor from "../components/DynamicDataEditor";
-import AdminBitOptionsButton from "../components/AdminBitOptionsButton";
 import BitOptionsDropdown from "../components/BitOptionsDropdown";
 
 export default function AdminPanel() {
@@ -364,13 +363,6 @@ export default function AdminPanel() {
           flexWrap: "wrap",
           justifyContent: "flex-end"
         }}>
-          <AdminBitOptionsButton 
-            onOptionSelect={(option) => {
-              console.log('Selected bit option:', option);
-              alert(`Đã chọn: ${option.label}\nMô tả: ${option.description}`);
-            }}
-          />
-          
           <button 
             onClick={() => setShowColumnModal(true)}
             style={{

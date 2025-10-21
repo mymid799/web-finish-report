@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import ColumnManager, { ColumnHeader, deleteColumn } from "../components/ColumnManager";
 import UrlCell from "../components/UrlCell";
 import SmartTextCell from "../components/SmartTextCell";
-import AdminBitOptionsButton from "../components/AdminBitOptionsButton";
 import BitOptionsDropdown from "../components/BitOptionsDropdown";
 import "../styles/table.css";
 
@@ -275,13 +274,6 @@ export default function Tools() {
 
       {isAdmin && (
         <div className="control-buttons">
-          <AdminBitOptionsButton 
-            onOptionSelect={(option) => {
-              console.log('Selected bit option:', option);
-              alert(`Đã chọn: ${option.label}\nMô tả: ${option.description}`);
-            }}
-          />
-          
           <button
             onClick={() => setShowAddColumnModal(true)}
             className="btn-add-column"

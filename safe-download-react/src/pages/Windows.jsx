@@ -58,8 +58,12 @@ export default function Windows() {
     // Load dữ liệu và cấu hình cột từ database
     const loadData = async () => {
       try {
+        console.log("📥 Loading Windows data from database...");
         const res = await fetch("http://localhost:5000/api/column-config/data/windows");
+        console.log("📥 Response status:", res.status);
+        
         const result = await res.json();
+        console.log("📥 Response data:", result);
         
         if (res.ok && result.success) {
           setData(result.data.data || []);
@@ -70,15 +74,18 @@ export default function Windows() {
             // Lưu vào localStorage để backup
             localStorage.setItem(`column_config_windows`, JSON.stringify({ columns: result.data.columnConfig.columns }));
           } else {
+            console.log("⚠️ No column config found, using localStorage");
             // Fallback: load từ localStorage
             loadFromLocalStorage();
           }
         } else {
+          console.error("❌ Failed to load from database:", result);
           // Fallback: load từ localStorage
           loadFromLocalStorage();
         }
       } catch (error) {
-        console.warn("⚠️ Error loading from database, using localStorage:", error);
+        console.error("❌ Error loading from database:", error);
+        console.warn("⚠️ Using localStorage fallback");
         loadFromLocalStorage();
       }
     };
@@ -158,6 +165,8 @@ export default function Windows() {
     if (!token) return alert("🔒 Bạn cần đăng nhập admin!");
 
     try {
+      console.log("💾 Saving Windows data:", { data, columns });
+      
       // Lưu cấu hình cột và dữ liệu
       const res = await fetch("http://localhost:5000/api/column-config/data/save", {
         method: "POST",
@@ -174,12 +183,16 @@ export default function Windows() {
         }),
       });
 
+      console.log("📡 Response status:", res.status);
       const result = await res.json();
+      console.log("📡 Response data:", result);
+      
       if (res.ok) {
         alert(result.message || "✅ Dữ liệu và cấu hình cột đã lưu!");
         // Lưu cấu hình cột vào localStorage
         localStorage.setItem(`column_config_windows`, JSON.stringify({ columns }));
       } else {
+        console.error("❌ Save failed:", result);
         alert(result.message || "❌ Lưu thất bại!");
       }
     } catch (error) {
@@ -332,8 +345,8 @@ export default function Windows() {
           <tbody>
             {filteredData.map((row, idx) => (
               <tr key={idx}>
-                {columns.map((col) => (
-                  <td key={col.key} style={tdStyle}>
+                {columns.map((col, colIndex) => (
+                  <td key={`${idx}-${col.key}-${colIndex}`} style={tdStyle}>
                     {col.type === 'url' ? (
                       <UrlCell
                         isAdmin={isAdmin}
@@ -346,7 +359,7 @@ export default function Windows() {
                     ) : (
                       <SmartTextCell
                         isAdmin={isAdmin}
-                        value={row[col.key]}
+                        value={row[col.key] || ""}
                         onChange={(v) => handleChange(idx, col.key, v)}
                       />
                     )}

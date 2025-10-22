@@ -62,11 +62,27 @@ const SmartTextCell = ({ isAdmin, value, onChange }) => {
   };
 
   if (isAdmin) {
-    // Admin view: editable input
+    // Admin view: editable textarea with Shift+Enter support
     return (
-      <input
+      <textarea
         value={value || ""}
         onChange={(e) => onChange(e.target.value)}
+        onKeyDown={(e) => {
+          // Shift+Enter để xuống dòng
+          if (e.key === 'Enter' && e.shiftKey) {
+            e.preventDefault();
+            const textarea = e.target;
+            const start = textarea.selectionStart;
+            const end = textarea.selectionEnd;
+            const newValue = value.substring(0, start) + '\n' + value.substring(end);
+            onChange(newValue);
+            
+            // Đặt cursor sau ký tự xuống dòng
+            setTimeout(() => {
+              textarea.selectionStart = textarea.selectionEnd = start + 1;
+            }, 0);
+          }
+        }}
         style={{
           width: "100%",
           border: "none",
@@ -75,7 +91,10 @@ const SmartTextCell = ({ isAdmin, value, onChange }) => {
           fontSize: "14px",
           padding: "4px 8px",
           borderRadius: "4px",
-          transition: "all 0.2s ease"
+          transition: "all 0.2s ease",
+          resize: "vertical",
+          minHeight: "32px",
+          fontFamily: "inherit"
         }}
         onFocus={(e) => {
           e.target.style.background = "#f8f9fa";
@@ -190,13 +209,15 @@ const SmartTextCell = ({ isAdmin, value, onChange }) => {
           </span>
         );
       } else {
-        // Regular text
+        // Regular text with line break support
         return (
           <span style={{
             fontSize: "14px",
             color: "#333",
             padding: "4px 8px",
-            display: "inline-block"
+            display: "inline-block",
+            whiteSpace: "pre-line",
+            wordWrap: "break-word"
           }}>
             {value || "-"}
           </span>

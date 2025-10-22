@@ -23,7 +23,9 @@ export default function ColumnManager({
     setIsAddingColumn(true);
     
     try {
-      const newKey = newColumnName.toLowerCase().replace(/\s+/g, '_');
+      // Tạo key duy nhất bằng cách thêm timestamp
+      const baseKey = newColumnName.toLowerCase().replace(/\s+/g, '_');
+      const newKey = `${baseKey}_${Date.now()}`;
       const newColumn = {
         key: newKey,
         label: newColumnName,
@@ -59,7 +61,8 @@ export default function ColumnManager({
       }
 
       // Step 2: Save column configuration
-      const saveConfigResponse = await fetch("http://localhost:5000/api/admin/columns/save", {
+      console.log("💾 Saving column config:", { category, columns: updatedColumns });
+      const saveConfigResponse = await fetch("http://localhost:5000/api/column-config", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -75,12 +78,16 @@ export default function ColumnManager({
         let saveResult;
         try {
           saveResult = await saveConfigResponse.json();
+          console.error("❌ Save config error:", saveResult);
         } catch (parseError) {
           console.error("Failed to parse save config response:", parseError);
           throw new Error(`Server error: ${saveConfigResponse.status} ${saveConfigResponse.statusText}`);
         }
         throw new Error(saveResult.message || "Failed to save column configuration");
       }
+
+      const saveResult = await saveConfigResponse.json();
+      console.log("✅ Column config saved successfully:", saveResult);
 
       // Step 3: Update local state and reload data
       setColumns(updatedColumns);
@@ -170,7 +177,7 @@ export default function ColumnManager({
       }
 
       // Step 2: Save updated column configuration
-      const saveConfigResponse = await fetch("http://localhost:5000/api/admin/columns/save", {
+      const saveConfigResponse = await fetch("http://localhost:5000/api/column-config", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -412,7 +419,7 @@ export const deleteColumn = async (columnKey, { columns, setColumns, data, setDa
     }
 
     // Step 2: Save updated column configuration
-    const saveConfigResponse = await fetch("http://localhost:5000/api/admin/columns/save", {
+    const saveConfigResponse = await fetch("http://localhost:5000/api/column-config", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

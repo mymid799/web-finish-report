@@ -71,11 +71,38 @@ table th {
   line-height: 1.5;
   font-weight: bold;
   font-family: "Times New Roman", serif;
+  white-space: pre-line;
+  word-wrap: break-word;
+  max-width: 300px;
 }
 
 /* Dynamic font size override */
 .enhanced-table td[dynamic-font-size] {
   font-size: var(--dynamic-font-size, 14px) !important;
+}
+
+/* Textarea styling for multi-line text */
+.enhanced-table textarea {
+  width: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 14px;
+  font-family: "Times New Roman", serif;
+  font-weight: bold;
+  resize: vertical;
+  min-height: 32px;
+  max-height: 120px;
+  line-height: 1.5;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.enhanced-table textarea:focus {
+  background: #f8f9fa;
+  border: 1px solid #007bff;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
 }
 
 .enhanced-table td:last-child {

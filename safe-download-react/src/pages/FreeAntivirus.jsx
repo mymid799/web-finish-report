@@ -520,6 +520,8 @@ export default function FreeAntivirus() {
                                 fontWeight: '500',
                                 outline: 'none',
                                 transition: 'all 0.3s ease',
+                                textAlign: 'center',
+                                whiteSpace: 'pre-line',
                                 '::placeholder': {
                                   color: 'rgba(255, 255, 255, 0.7)'
                                 }
@@ -545,7 +547,9 @@ export default function FreeAntivirus() {
                               border: '1px solid rgba(255, 255, 255, 0.2)',
                               fontSize: '14px',
                               lineHeight: '1.5',
-                              wordBreak: 'break-word'
+                              wordBreak: 'break-word',
+                              textAlign: 'center',
+                              whiteSpace: 'pre-line'
                             }}>
                               {row.noteContent}
                             </div>
@@ -592,24 +596,24 @@ export default function FreeAntivirus() {
                 </tr>
               ) : (
                 <tr key={`antivirus-row-${idx}`}>
-                {columns.map((col) => (
-                  <td key={col.key} style={tdStyle}>
+                {columns.map((col, colIndex) => (
+                  <td key={`${idx}-${col.key}-${colIndex}`} style={tdStyle}>
                     {col.type === 'url' ? (
-                        <UrlCell
-                          isAdmin={isAdmin}
-                          row={row}
-                          idx={idx}
-                          type={col.key}
-                          columnKey={col.key}
-                          handleChange={handleChange}
-                        />
-                      ) : (
-                        <SmartTextCell
-                          isAdmin={isAdmin}
-                          value={row[col.key]}
-                          onChange={(v) => handleChange(idx, col.key, v)}
-                        />
-                      )}
+                      <UrlCell
+                        isAdmin={isAdmin}
+                        row={row}
+                        idx={idx}
+                        type={col.key}
+                        columnKey={col.key}
+                        handleChange={handleChange}
+                      />
+                    ) : (
+                      <SmartTextCell
+                        isAdmin={isAdmin}
+                        value={row[col.key] || ""}
+                        onChange={(v) => handleChange(idx, col.key, v)}
+                      />
+                    )}
                   </td>
                 ))}
 
@@ -826,14 +830,16 @@ export default function FreeAntivirus() {
               <textarea
                 value={noteContent}
                 onChange={(e) => setNoteContent(e.target.value)}
-                          style={{
-                            width: "100%",
+                style={{
+                  width: "100%",
                   padding: "8px",
                   border: "1px solid #ddd",
                   borderRadius: "4px",
                   fontSize: "14px",
                   minHeight: "120px",
-                  resize: "vertical"
+                  resize: "vertical",
+                  textAlign: "center",
+                  whiteSpace: "pre-line"
                 }}
                 placeholder="Nhập nội dung note..."
               />

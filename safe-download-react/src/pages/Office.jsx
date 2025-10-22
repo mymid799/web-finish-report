@@ -393,8 +393,8 @@ export default function Office() {
           <tbody>
             {filteredData.map((row, idx) => (
               <tr key={`office-row-${idx}-${row.id || idx}`}>
-                {columns.map((col) => (
-                  <td key={col.key} style={tdStyle}>
+                {columns.map((col, colIndex) => (
+                  <td key={`${idx}-${col.key}-${colIndex}`} style={tdStyle}>
                     {col.type === 'url' ? (
                       <UrlCell
                         isAdmin={isAdmin}
@@ -407,7 +407,7 @@ export default function Office() {
                     ) : (
                       <SmartTextCell
                         isAdmin={isAdmin}
-                        value={row[col.key]}
+                        value={row[col.key] || ""}
                         onChange={(v) => handleChange(idx, col.key, v)}
                       />
                     )}

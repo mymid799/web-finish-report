@@ -34,6 +34,19 @@ export default function Tools() {
     }
   };
 
+  // Handle column label editing
+  const handleEditColumn = (columnKey, newLabel) => {
+    const updatedColumns = columns.map(col => 
+      col.key === columnKey ? { ...col, label: newLabel } : col
+    );
+    setColumns(updatedColumns);
+    
+    // Save to localStorage as backup
+    localStorage.setItem(`column_config_tools`, JSON.stringify({ columns: updatedColumns }));
+    
+    console.log(`✅ Column "${columnKey}" renamed to "${newLabel}"`);
+  };
+
   const [columns, setColumns] = useState([
     { key: "toolName", label: "Tên Tool", type: "text" },
     { key: "mainLink", label: "Trang chủ / Link gốc", type: "url" },
@@ -50,10 +63,10 @@ export default function Tools() {
         const res = await fetch("http://localhost:5000/api/column-config/data/tools");
         const result = await res.json();
         
-        console.log("📥 Load response:", result);
+        console.log("📥 Response status:", res.status);
+        console.log("📥 Response data:", result);
         
         if (res.ok && result.success) {
-          console.log("📥 Loaded data:", result.data.data);
           setData(result.data.data || []);
           
           if (result.data.columnConfig && result.data.columnConfig.columns) {
@@ -62,15 +75,18 @@ export default function Tools() {
             // Lưu vào localStorage để backup
             localStorage.setItem(`column_config_tools`, JSON.stringify({ columns: result.data.columnConfig.columns }));
           } else {
+            console.log("⚠️ No column config found, using localStorage");
             // Fallback: load từ localStorage
             loadFromLocalStorage();
           }
         } else {
+          console.error("❌ Failed to load from database:", result);
           // Fallback: load từ localStorage
           loadFromLocalStorage();
         }
       } catch (error) {
-        console.warn("⚠️ Error loading from database, using localStorage:", error);
+        console.error("❌ Error loading from database:", error);
+        console.warn("⚠️ Using localStorage fallback");
         loadFromLocalStorage();
       }
     };
@@ -195,7 +211,7 @@ export default function Tools() {
     if (!token) return alert("🔒 Bạn cần đăng nhập admin!");
 
     try {
-      console.log("💾 Saving Tools data:", { category: "tools", data, columns });
+      console.log("💾 Saving Tools data:", { data, columns });
       
       // Lưu cấu hình cột và dữ liệu
       const res = await fetch("http://localhost:5000/api/column-config/data/save", {
@@ -213,8 +229,9 @@ export default function Tools() {
         }),
       });
 
+      console.log("📡 Response status:", res.status);
       const result = await res.json();
-      console.log("💾 Save response:", result);
+      console.log("📡 Response data:", result);
       
       if (res.ok) {
         alert(result.message || "✅ Dữ liệu và cấu hình cột đã lưu!");
@@ -223,6 +240,7 @@ export default function Tools() {
         // Lưu dữ liệu vào localStorage để backup
         localStorage.setItem(`tools_data`, JSON.stringify(data));
       } else {
+        console.error("❌ Save failed:", result);
         alert(result.message || "❌ Lưu thất bại!");
       }
     } catch (error) {
@@ -381,6 +399,7 @@ export default function Tools() {
                   key={col.key}
                   column={col}
                   onDelete={handleDeleteColumn}
+                  onEdit={handleEditColumn}
                   isAdmin={isAdmin}
                   isLoading={isLoading}
                   headerStyle={index === 0 ? thStyleFirst : thStyle}
@@ -393,8 +412,8 @@ export default function Tools() {
           <tbody>
             {filteredData.map((row, idx) => (
               <tr key={`tools-row-${idx}`}>
-                {columns.map((col) => (
-                  <td key={col.key} style={tdStyle}>
+                {columns.map((col, colIndex) => (
+                  <td key={`${idx}-${col.key}-${colIndex}`} style={tdStyle}>
                     {col.type === 'url' ? (
                       <UrlCell
                         isAdmin={isAdmin}
@@ -407,7 +426,7 @@ export default function Tools() {
                     ) : (
                       <SmartTextCell
                         isAdmin={isAdmin}
-                        value={row[col.key]}
+                        value={row[col.key] || ""}
                         onChange={(v) => handleChange(idx, col.key, v)}
                       />
                     )}

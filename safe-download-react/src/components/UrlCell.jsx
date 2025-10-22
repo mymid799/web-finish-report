@@ -47,7 +47,7 @@ const UrlCell = ({ isAdmin, row, idx, type, handleChange, columnKey }) => {
               display: "block", 
               fontSize: "11px", 
               fontWeight: "600", 
-              color: "#28a745", 
+              color: "#007bff", 
               marginBottom: "4px",
               textAlign: "center"
             }}>
@@ -79,7 +79,7 @@ const UrlCell = ({ isAdmin, row, idx, type, handleChange, columnKey }) => {
             display: "block", 
             fontSize: "11px", 
             fontWeight: "600", 
-            color: "#6f42c1", 
+            color: "#007bff", 
             marginBottom: "4px",
             textAlign: "center"
           }}>
@@ -147,7 +147,7 @@ const UrlCell = ({ isAdmin, row, idx, type, handleChange, columnKey }) => {
             <span style={{ 
               fontSize: "10px",
               fontWeight: show === "32" ? "700" : "500",
-              color: show === "32" ? "#007bff" : "#6c757d",
+              color: "#007bff",
               textShadow: show === "32" ? "0 1px 2px rgba(0,123,255,0.3)" : "none",
               transition: "all 0.2s ease",
               whiteSpace: "nowrap",
@@ -185,7 +185,7 @@ const UrlCell = ({ isAdmin, row, idx, type, handleChange, columnKey }) => {
             <span style={{ 
               fontSize: "10px",
               fontWeight: show === "64" ? "700" : "500",
-              color: show === "64" ? "#007bff" : "#6c757d",
+              color: "#007bff",
               textShadow: show === "64" ? "0 1px 2px rgba(0,123,255,0.3)" : "none",
               transition: "all 0.2s ease",
               whiteSpace: "nowrap",
@@ -223,7 +223,7 @@ const UrlCell = ({ isAdmin, row, idx, type, handleChange, columnKey }) => {
             <span style={{ 
               fontSize: "10px",
               fontWeight: show === "common" ? "700" : "500",
-              color: show === "common" ? "#28a745" : "#6c757d",
+              color: "#007bff",
               textShadow: show === "common" ? "0 1px 2px rgba(40,167,69,0.3)" : "none",
               transition: "all 0.2s ease",
               whiteSpace: "nowrap",
@@ -261,7 +261,7 @@ const UrlCell = ({ isAdmin, row, idx, type, handleChange, columnKey }) => {
             <span style={{ 
               fontSize: "10px",
               fontWeight: show === "both" ? "700" : "500",
-              color: show === "both" ? "#007bff" : "#6c757d",
+              color: "#007bff",
               textShadow: show === "both" ? "0 1px 2px rgba(0,123,255,0.3)" : "none",
               transition: "all 0.2s ease",
               whiteSpace: "nowrap",
@@ -299,7 +299,7 @@ const UrlCell = ({ isAdmin, row, idx, type, handleChange, columnKey }) => {
             <span style={{ 
               fontSize: "10px",
               fontWeight: show === "none" ? "700" : "500",
-              color: show === "none" ? "#dc3545" : "#6c757d",
+              color: "#007bff",
               textShadow: show === "none" ? "0 1px 2px rgba(220,53,69,0.3)" : "none",
               transition: "all 0.2s ease",
               whiteSpace: "nowrap",
@@ -333,28 +333,32 @@ const UrlCell = ({ isAdmin, row, idx, type, handleChange, columnKey }) => {
             textDecoration: "none",
             fontWeight: "600",
             fontSize: "14px",
-            display: "inline-block",
+            display: "block",
             padding: "8px 12px",
             borderRadius: "6px",
-            background: "#f8f9fa",
+            background: "#ffffff",
             border: "1px solid #dee2e6",
             transition: "all 0.3s ease",
-            width: "120px",
+            width: "100%",
             height: "40px",
             textAlign: "center",
             lineHeight: "24px",
-            boxSizing: "border-box"
+            boxSizing: "border-box",
+            boxShadow: "0 2px 4px rgba(0,0,0,0.1)"
           }}
           onMouseOver={(e) => {
-            e.target.style.background = "#e9ecef";
-            e.target.style.color = "#0056b3";
+            e.target.style.background = "#ffffff";
+            e.target.style.color = "#1e7e34";
+            e.target.style.boxShadow = "0 2px 4px rgba(0,0,0,0.1)";
+            e.target.style.boxShadow = "0 4px 8px rgba(0,0,0,0.15)";
           }}
           onMouseOut={(e) => {
-            e.target.style.background = "#f8f9fa";
-            e.target.style.color = "#007bff";
+            e.target.style.background = "#ffffff";
+            e.target.style.color = "#1e7e34";
+            e.target.style.boxShadow = "0 2px 4px rgba(0,0,0,0.1)";
           }}
         >
-          🔗 32-bit
+ 32-bit
         </a>
       </div>
     );
@@ -370,28 +374,32 @@ const UrlCell = ({ isAdmin, row, idx, type, handleChange, columnKey }) => {
             textDecoration: "none",
             fontWeight: "600",
             fontSize: "14px",
-            display: "inline-block",
+            display: "block",
             padding: "8px 12px",
             borderRadius: "6px",
-            background: "#f8f9fa",
+            background: "#ffffff",
             border: "1px solid #dee2e6",
             transition: "all 0.3s ease",
-            width: "120px",
+            width: "100%",
             height: "40px",
             textAlign: "center",
             lineHeight: "24px",
-            boxSizing: "border-box"
+            boxSizing: "border-box",
+            boxShadow: "0 2px 4px rgba(0,0,0,0.1)"
           }}
           onMouseOver={(e) => {
-            e.target.style.background = "#e9ecef";
+            e.target.style.background = "#ffffff";
             e.target.style.color = "#1e7e34";
+            e.target.style.boxShadow = "0 2px 4px rgba(0,0,0,0.1)";
+            e.target.style.boxShadow = "0 4px 8px rgba(0,0,0,0.15)";
           }}
           onMouseOut={(e) => {
-            e.target.style.background = "#f8f9fa";
-            e.target.style.color = "#28a745";
+            e.target.style.background = "#ffffff";
+            e.target.style.color = "#1e7e34";
+            e.target.style.boxShadow = "0 2px 4px rgba(0,0,0,0.1)";
           }}
         >
-          🔗 64-bit
+ 64-bit
         </a>
       </div>
     );
@@ -403,32 +411,36 @@ const UrlCell = ({ isAdmin, row, idx, type, handleChange, columnKey }) => {
           target="_blank" 
           rel="noreferrer"
           style={{
-            color: "#6f42c1",
+            color: "#007bff",
             textDecoration: "none",
             fontWeight: "600",
             fontSize: "14px",
-            display: "inline-block",
+            display: "block",
             padding: "8px 12px",
             borderRadius: "6px",
-            background: "#f8f9fa",
+            background: "#ffffff",
             border: "1px solid #dee2e6",
             transition: "all 0.3s ease",
-            width: "120px",
+            width: "100%",
             height: "40px",
             textAlign: "center",
             lineHeight: "24px",
-            boxSizing: "border-box"
+            boxSizing: "border-box",
+            boxShadow: "0 2px 4px rgba(0,0,0,0.1)"
           }}
           onMouseOver={(e) => {
-            e.target.style.background = "#e9ecef";
-            e.target.style.color = "#5a2d91";
+            e.target.style.background = "#ffffff";
+            e.target.style.color = "#1e7e34";
+            e.target.style.boxShadow = "0 2px 4px rgba(0,0,0,0.1)";
+            e.target.style.boxShadow = "0 4px 8px rgba(0,0,0,0.15)";
           }}
           onMouseOut={(e) => {
-            e.target.style.background = "#f8f9fa";
-            e.target.style.color = "#6f42c1";
+            e.target.style.background = "#ffffff";
+            e.target.style.color = "#1e7e34";
+            e.target.style.boxShadow = "0 2px 4px rgba(0,0,0,0.1)";
           }}
         >
-          🔗 Download
+ Download
         </a>
       </div>
     );
@@ -445,28 +457,29 @@ const UrlCell = ({ isAdmin, row, idx, type, handleChange, columnKey }) => {
               textDecoration: "none",
               fontWeight: "600",
               fontSize: "14px",
-              display: "inline-block",
+              display: "block",
               padding: "8px 12px",
               borderRadius: "6px",
-              background: "#f8f9fa",
+              background: "#ffffff",
               border: "1px solid #dee2e6",
               transition: "all 0.3s ease",
-              width: "120px",
+              width: "100%",
               height: "40px",
               textAlign: "center",
               lineHeight: "24px",
               boxSizing: "border-box"
             }}
             onMouseOver={(e) => {
-              e.target.style.background = "#e9ecef";
-              e.target.style.color = "#0056b3";
+            e.target.style.background = "#f8f9fa";
+            e.target.style.color = "#0056b3";
+            e.target.style.boxShadow = "0 4px 8px rgba(0,0,0,0.15)";
             }}
             onMouseOut={(e) => {
-              e.target.style.background = "#f8f9fa";
+              e.target.style.background = "#ffffff";
               e.target.style.color = "#007bff";
             }}
           >
-            🔗 32-bit
+ 32-bit
           </a>
         )}
         {link64 && (
@@ -479,13 +492,49 @@ const UrlCell = ({ isAdmin, row, idx, type, handleChange, columnKey }) => {
               textDecoration: "none",
               fontWeight: "600",
               fontSize: "14px",
-              display: "inline-block",
+              display: "block",
               padding: "8px 12px",
               borderRadius: "6px",
-              background: "#f8f9fa",
+              background: "#ffffff",
               border: "1px solid #dee2e6",
               transition: "all 0.3s ease",
-              width: "120px",
+              width: "100%",
+              height: "40px",
+              textAlign: "center",
+              lineHeight: "24px",
+              boxSizing: "border-box"
+            }}
+            onMouseOver={(e) => {
+            e.target.style.background = "#f8f9fa";
+            e.target.style.color = "#1e7e34";
+            e.target.style.boxShadow = "0 4px 8px rgba(0,0,0,0.15)";
+            }}
+            onMouseOut={(e) => {
+            e.target.style.background = "#ffffff";
+            e.target.style.color = "#28a745";
+            e.target.style.boxShadow = "0 2px 4px rgba(0,0,0,0.1)";
+            }}
+          >
+ 64-bit
+          </a>
+        )}
+        {linkCommon && (
+          <a 
+            href={linkCommon} 
+            target="_blank" 
+            rel="noreferrer"
+            style={{
+              color: "#007bff",
+              textDecoration: "none",
+              fontWeight: "600",
+              fontSize: "14px",
+              display: "block",
+              padding: "8px 12px",
+              borderRadius: "6px",
+              background: "#ffffff",
+              border: "1px solid #dee2e6",
+              transition: "all 0.3s ease",
+              width: "100%",
               height: "40px",
               textAlign: "center",
               lineHeight: "24px",
@@ -497,44 +546,10 @@ const UrlCell = ({ isAdmin, row, idx, type, handleChange, columnKey }) => {
             }}
             onMouseOut={(e) => {
               e.target.style.background = "#f8f9fa";
-              e.target.style.color = "#28a745";
+              e.target.style.color = "#1e7e34";
             }}
           >
-            🔗 64-bit
-          </a>
-        )}
-        {linkCommon && (
-          <a 
-            href={linkCommon} 
-            target="_blank" 
-            rel="noreferrer"
-            style={{
-              color: "#6f42c1",
-              textDecoration: "none",
-              fontWeight: "600",
-              fontSize: "14px",
-              display: "inline-block",
-              padding: "8px 12px",
-              borderRadius: "6px",
-              background: "#f8f9fa",
-              border: "1px solid #dee2e6",
-              transition: "all 0.3s ease",
-              width: "120px",
-              height: "40px",
-              textAlign: "center",
-              lineHeight: "24px",
-              boxSizing: "border-box"
-            }}
-            onMouseOver={(e) => {
-              e.target.style.background = "#e9ecef";
-              e.target.style.color = "#5a2d91";
-            }}
-            onMouseOut={(e) => {
-              e.target.style.background = "#f8f9fa";
-              e.target.style.color = "#6f42c1";
-            }}
-          >
-            🔗 Download
+ Download
           </a>
         )}
       </div>
@@ -547,32 +562,36 @@ const UrlCell = ({ isAdmin, row, idx, type, handleChange, columnKey }) => {
           target="_blank" 
           rel="noreferrer"
           style={{
-            color: "#6f42c1",
+            color: "#007bff",
             textDecoration: "none",
             fontWeight: "600",
             fontSize: "14px",
-            display: "inline-block",
+            display: "block",
             padding: "8px 12px",
             borderRadius: "6px",
-            background: "#f8f9fa",
+            background: "#ffffff",
             border: "1px solid #dee2e6",
             transition: "all 0.3s ease",
-            width: "120px",
+            width: "100%",
             height: "40px",
             textAlign: "center",
             lineHeight: "24px",
-            boxSizing: "border-box"
+            boxSizing: "border-box",
+            boxShadow: "0 2px 4px rgba(0,0,0,0.1)"
           }}
           onMouseOver={(e) => {
-            e.target.style.background = "#e9ecef";
-            e.target.style.color = "#5a2d91";
+            e.target.style.background = "#ffffff";
+            e.target.style.color = "#1e7e34";
+            e.target.style.boxShadow = "0 2px 4px rgba(0,0,0,0.1)";
+            e.target.style.boxShadow = "0 4px 8px rgba(0,0,0,0.15)";
           }}
           onMouseOut={(e) => {
-            e.target.style.background = "#f8f9fa";
-            e.target.style.color = "#6f42c1";
+            e.target.style.background = "#ffffff";
+            e.target.style.color = "#1e7e34";
+            e.target.style.boxShadow = "0 2px 4px rgba(0,0,0,0.1)";
           }}
         >
-          🔗 Download
+ Download
         </a>
       </div>
     );

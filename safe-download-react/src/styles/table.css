@@ -25,6 +25,7 @@
   font-size: 14px;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  font-family: "Times New Roman", serif;
 }
 
 /* Force center alignment for all table headers */
@@ -68,6 +69,13 @@ table th {
   vertical-align: top;
   font-size: 14px;
   line-height: 1.5;
+  font-weight: bold;
+  font-family: "Times New Roman", serif;
+}
+
+/* Dynamic font size override */
+.enhanced-table td[dynamic-font-size] {
+  font-size: var(--dynamic-font-size, 14px) !important;
 }
 
 .enhanced-table td:last-child {

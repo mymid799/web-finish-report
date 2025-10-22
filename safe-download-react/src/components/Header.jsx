@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { FiSettings, FiLogOut, FiKey, FiUser, FiEdit3, FiEye, FiEyeOff } from "react-icons/fi";
+import FontSizeController from "./FontSizeController";
 
 export default function Header() {
   const navigate = useNavigate();
@@ -1007,6 +1008,9 @@ export default function Header() {
           </form>
         </div>
       )}
+
+      {/* 🔤 Font Size Controller for Admin */}
+      {isAdmin && <FontSizeController />}
 
       {/* 🔒 Modal xác nhận toggle Report/Feedback */}
       {showConfirmToggle && (

@@ -22,6 +22,7 @@ export default function DataTable({ columns, data }) {
                   border: "1px solid #bdbdbd", // 🔹 Viền rõ ràng
                   background: "#f8f4e3", // 🔸 Nền nhẹ như hình mẫu
                   fontWeight: 700,
+                  fontFamily: "Times New Roman, serif",
                 }}
               >
                 {col.title}
@@ -41,6 +42,8 @@ export default function DataTable({ columns, data }) {
                     border: "1px solid #cfcfcf", // 🔹 Viền ngang & dọc
                     background: i % 2 === 0 ? "#fcfcfc" : "#ffffff",
                     verticalAlign: "top",
+                    fontWeight: "bold",
+                    fontFamily: "Times New Roman, serif",
                   }}
                 >
                   {col.render ? col.render(row[col.key], row) : row[col.key]}

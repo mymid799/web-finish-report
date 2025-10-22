@@ -622,6 +622,7 @@ const thStyle = {
   padding: "8px 12px",
   textAlign: "center",
   fontWeight: "bold",
+  fontFamily: "Times New Roman, serif",
 };
 
 const thStyleFirst = {
@@ -631,11 +632,14 @@ const thStyleFirst = {
   padding: "8px 12px",
   textAlign: "center",
   fontWeight: "bold",
+  fontFamily: "Times New Roman, serif",
 };
 const tdStyle = {
   border: "1px solid #eee",
   padding: "8px 10px",
   verticalAlign: "top",
+  fontWeight: "bold",
+  fontFamily: "Times New Roman, serif",
 };
 const inputStyle = {
   width: "100%",

@@ -17,22 +17,13 @@ export default function Footer() {
           fontSize: 12,
           color: "#6b7280",
           display: "flex",
-          justifyContent: "space-between",
-          flexWrap: "wrap",
+          justifyContent: "center",
+          alignItems: "center",
+          flexDirection: "column",
+          gap: "8px",
         }}
       >
         <span>© 2025 Safe Download Portal | Đảm bảo an toàn thông tin</span>
-        <span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
-          <span
-            style={{
-              width: 6,
-              height: 6,
-              borderRadius: 999,
-              background: "#22c55e",
-            }}
-          />{" "}
-          Online
-        </span>
       </div>
     </footer>
   );

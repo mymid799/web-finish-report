@@ -249,10 +249,46 @@ export default function Header() {
             right: 20,
             display: "flex",
             alignItems: "center",
-            gap: 10,
+            gap: 8,
             zIndex: 1000,
           }}
         >
+          {/* Nút chỉnh cỡ chữ - chỉ hiện cho admin */}
+          {isAdmin && (
+            <button
+              data-font-size-toggle
+              onClick={() => {
+                // Dispatch custom event để trigger FontSizeController
+                const event = new CustomEvent('toggleFontSize');
+                document.dispatchEvent(event);
+              }}
+              title="Chỉnh cỡ chữ"
+              style={{
+                background: "none",
+                border: "none",
+                cursor: "pointer",
+                fontSize: 24,
+                color: "#b84e00",
+                transition: "transform 0.2s ease, color 0.2s ease",
+                width: "32px",
+                height: "32px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                borderRadius: "4px"
+              }}
+              onMouseEnter={(e) => {
+                e.target.style.color = "#8c3500";
+                e.target.style.background = "rgba(184, 78, 0, 0.1)";
+              }}
+              onMouseLeave={(e) => {
+                e.target.style.color = "#b84e00";
+                e.target.style.background = "none";
+              }}
+            >
+              🔤
+            </button>
+          )}
           {/* Nếu đã login thì hiện nút logout và đổi mật khẩu */}
           {isAdmin ? (
             <>
@@ -266,9 +302,21 @@ export default function Header() {
                   fontSize: 24,
                   color: "#b84e00",
                   transition: "transform 0.2s ease, color 0.2s ease",
+                  width: "32px",
+                  height: "32px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  borderRadius: "4px"
                 }}
-                onMouseEnter={(e) => (e.target.style.color = "#8c3500")}
-                onMouseLeave={(e) => (e.target.style.color = "#b84e00")}
+                onMouseEnter={(e) => {
+                  e.target.style.color = "#8c3500";
+                  e.target.style.background = "rgba(184, 78, 0, 0.1)";
+                }}
+                onMouseLeave={(e) => {
+                  e.target.style.color = "#b84e00";
+                  e.target.style.background = "none";
+                }}
               >
                 <FiUser />
               </button>
@@ -282,9 +330,21 @@ export default function Header() {
                   fontSize: 24,
                   color: "#b84e00",
                   transition: "transform 0.2s ease, color 0.2s ease",
+                  width: "32px",
+                  height: "32px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  borderRadius: "4px"
                 }}
-                onMouseEnter={(e) => (e.target.style.color = "#8c3500")}
-                onMouseLeave={(e) => (e.target.style.color = "#b84e00")}
+                onMouseEnter={(e) => {
+                  e.target.style.color = "#8c3500";
+                  e.target.style.background = "rgba(184, 78, 0, 0.1)";
+                }}
+                onMouseLeave={(e) => {
+                  e.target.style.color = "#b84e00";
+                  e.target.style.background = "none";
+                }}
               >
                 <FiKey />
               </button>
@@ -298,9 +358,21 @@ export default function Header() {
                   fontSize: 24,
                   color: showReportFeedback ? "#28a745" : "#dc3545",
                   transition: "transform 0.2s ease, color 0.2s ease",
+                  width: "32px",
+                  height: "32px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  borderRadius: "4px"
                 }}
-                onMouseEnter={(e) => (e.target.style.color = showReportFeedback ? "#1e7e34" : "#c82333")}
-                onMouseLeave={(e) => (e.target.style.color = showReportFeedback ? "#28a745" : "#dc3545")}
+                onMouseEnter={(e) => {
+                  e.target.style.color = showReportFeedback ? "#1e7e34" : "#c82333";
+                  e.target.style.background = showReportFeedback ? "rgba(40, 167, 69, 0.1)" : "rgba(220, 53, 69, 0.1)";
+                }}
+                onMouseLeave={(e) => {
+                  e.target.style.color = showReportFeedback ? "#28a745" : "#dc3545";
+                  e.target.style.background = "none";
+                }}
               >
                 {showReportFeedback ? <FiEye /> : <FiEyeOff />}
               </button>
@@ -314,9 +386,21 @@ export default function Header() {
                   fontSize: 24,
                   color: "#b84e00",
                   transition: "transform 0.2s ease, color 0.2s ease",
+                  width: "32px",
+                  height: "32px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  borderRadius: "4px"
                 }}
-                onMouseEnter={(e) => (e.target.style.color = "#8c3500")}
-                onMouseLeave={(e) => (e.target.style.color = "#b84e00")}
+                onMouseEnter={(e) => {
+                  e.target.style.color = "#8c3500";
+                  e.target.style.background = "rgba(184, 78, 0, 0.1)";
+                }}
+                onMouseLeave={(e) => {
+                  e.target.style.color = "#b84e00";
+                  e.target.style.background = "none";
+                }}
               >
                 <FiLogOut />
               </button>
@@ -333,9 +417,21 @@ export default function Header() {
                   fontSize: 24,
                   color: "#b84e00",
                   transition: "transform 0.2s ease, color 0.2s ease",
+                  width: "32px",
+                  height: "32px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  borderRadius: "4px"
                 }}
-                onMouseEnter={(e) => (e.target.style.color = "#8c3500")}
-                onMouseLeave={(e) => (e.target.style.color = "#b84e00")}
+                onMouseEnter={(e) => {
+                  e.target.style.color = "#8c3500";
+                  e.target.style.background = "rgba(184, 78, 0, 0.1)";
+                }}
+                onMouseLeave={(e) => {
+                  e.target.style.color = "#b84e00";
+                  e.target.style.background = "none";
+                }}
               >
                 <FiUser />
               </button>
@@ -349,9 +445,21 @@ export default function Header() {
                   fontSize: 24,
                   color: "#b84e00",
                   transition: "transform 0.2s ease, color 0.2s ease",
+                  width: "32px",
+                  height: "32px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  borderRadius: "4px"
                 }}
-                onMouseEnter={(e) => (e.target.style.color = "#8c3500")}
-                onMouseLeave={(e) => (e.target.style.color = "#b84e00")}
+                onMouseEnter={(e) => {
+                  e.target.style.color = "#8c3500";
+                  e.target.style.background = "rgba(184, 78, 0, 0.1)";
+                }}
+                onMouseLeave={(e) => {
+                  e.target.style.color = "#b84e00";
+                  e.target.style.background = "none";
+                }}
               >
                 <FiSettings />
               </button>

@@ -36,7 +36,7 @@ export default function Navigation() {
 
   const navItems = [
     { path: "/", label: "🏠 Home", icon: "🏠" },
-    { path: "/windows", label: "🪟 Windows", icon: "🪟" },
+    { path: "/windows", label: "💻 Windows", icon: "💻" },
     { path: "/office", label: "📄 Office", icon: "📄" },
     { path: "/tools", label: "🛠️ Tools", icon: "🛠️" },
     { path: "/free-antivirus", label: "🛡️ Antivirus", icon: "🛡️" },

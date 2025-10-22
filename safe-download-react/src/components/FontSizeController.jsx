@@ -2,15 +2,46 @@ import React, { useState, useEffect } from "react";
 
 const FontSizeController = () => {
   const [fontSize, setFontSize] = useState(14);
+  const [isVisible, setIsVisible] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
+    // Kiểm tra admin status
+    const token = localStorage.getItem("token");
+    setIsAdmin(!!token);
+
     // Load saved font size from localStorage
     const savedFontSize = localStorage.getItem("tableFontSize");
     if (savedFontSize) {
       setFontSize(parseInt(savedFontSize));
       applyFontSize(parseInt(savedFontSize));
     }
-  }, []);
+
+    // Lắng nghe sự kiện từ nút trong Header
+    const handleToggleFromHeader = () => {
+      setIsVisible(!isVisible);
+    };
+
+    // Lắng nghe click outside để đóng panel
+    const handleClickOutside = (event) => {
+      const panel = document.querySelector('[data-font-size-panel]');
+      const toggleButton = document.querySelector('[data-font-size-toggle]');
+      
+      if (panel && !panel.contains(event.target) && 
+          toggleButton && !toggleButton.contains(event.target)) {
+        setIsVisible(false);
+      }
+    };
+
+    // Thêm event listeners
+    document.addEventListener('toggleFontSize', handleToggleFromHeader);
+    document.addEventListener('click', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('toggleFontSize', handleToggleFromHeader);
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, [isVisible]);
 
   const applyFontSize = (size) => {
     // Apply font size to all table elements
@@ -56,35 +87,113 @@ const FontSizeController = () => {
     applyFontSize(14);
   };
 
+  // Chỉ render component khi admin đã đăng nhập
+  if (!isAdmin) {
+    return null;
+  }
+
   return (
-    <div style={{
-      position: "fixed",
-      top: "80px",
-      right: "20px",
-      background: "white",
-      padding: "15px",
-      borderRadius: "10px",
-      boxShadow: "0 4px 12px rgba(0,0,0,0.15)",
-      border: "2px solid #007bff",
-      zIndex: 1000,
-      minWidth: "200px"
-    }}>
-      <div style={{
-        display: "flex",
-        alignItems: "center",
-        gap: "10px",
-        marginBottom: "10px"
-      }}>
-        <span style={{ fontSize: "16px" }}>🔤</span>
-        <h4 style={{ 
-          margin: 0, 
-          color: "#007bff",
-          fontSize: "16px",
-          fontWeight: "bold"
-        }}>
-          Kích thước chữ
-        </h4>
-      </div>
+    <>
+      {/* Nút toggle để hiện/ẩn panel - ẩn vì đã có nút trong Header */}
+      <button
+        onClick={() => setIsVisible(!isVisible)}
+        data-font-size-toggle
+        style={{
+          position: "fixed",
+          top: "80px",
+          right: "20px",
+          background: "linear-gradient(135deg, #007bff 0%, #0056b3 100%)",
+          color: "white",
+          border: "none",
+          borderRadius: "50%",
+          width: "50px",
+          height: "50px",
+          cursor: "pointer",
+          fontSize: "20px",
+          fontWeight: "bold",
+          boxShadow: "0 4px 12px rgba(0,123,255,0.3)",
+          zIndex: 1001,
+          display: "none", // Ẩn nút này vì đã có nút trong Header
+          alignItems: "center",
+          justifyContent: "center",
+          transition: "all 0.3s ease"
+        }}
+        onMouseEnter={(e) => {
+          e.target.style.transform = "scale(1.1)";
+          e.target.style.boxShadow = "0 6px 16px rgba(0,123,255,0.4)";
+        }}
+        onMouseLeave={(e) => {
+          e.target.style.transform = "scale(1)";
+          e.target.style.boxShadow = "0 4px 12px rgba(0,123,255,0.3)";
+        }}
+        title="Chỉnh cỡ chữ"
+      >
+        🔤
+      </button>
+
+      {/* Panel chỉnh cỡ chữ - chỉ hiện khi isVisible = true */}
+      {isVisible && (
+        <div 
+          data-font-size-panel
+          style={{
+            position: "fixed",
+            top: "60px",
+            right: "20px",
+            background: "white",
+            padding: "15px",
+            borderRadius: "10px",
+            boxShadow: "0 4px 12px rgba(0,0,0,0.15)",
+            border: "2px solid #007bff",
+            zIndex: 1000,
+            minWidth: "200px",
+            maxWidth: "250px"
+          }}>
+          <div style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            marginBottom: "10px"
+          }}>
+            <div style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "10px"
+            }}>
+              <span style={{ fontSize: "16px" }}>🔤</span>
+              <h4 style={{ 
+                margin: 0, 
+                color: "#007bff",
+                fontSize: "16px",
+                fontWeight: "bold"
+              }}>
+                Kích thước chữ
+              </h4>
+            </div>
+            <button
+              onClick={() => setIsVisible(false)}
+              style={{
+                background: "none",
+                border: "none",
+                cursor: "pointer",
+                fontSize: "18px",
+                color: "#dc3545",
+                padding: "2px",
+                borderRadius: "3px",
+                transition: "all 0.2s ease"
+              }}
+              onMouseEnter={(e) => {
+                e.target.style.background = "#f8d7da";
+                e.target.style.color = "#721c24";
+              }}
+              onMouseLeave={(e) => {
+                e.target.style.background = "none";
+                e.target.style.color = "#dc3545";
+              }}
+              title="Đóng"
+            >
+              ✕
+            </button>
+          </div>
       
       <div style={{ marginBottom: "15px" }}>
         <label style={{
@@ -223,7 +332,9 @@ const FontSizeController = () => {
       >
         🔄 Reset về mặc định
       </button>
-    </div>
+        </div>
+      )}
+    </>
   );
 };
 

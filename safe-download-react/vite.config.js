@@ -8,5 +8,6 @@ export default defineConfig({
     host: '0.0.0.0',  // Lắng nghe tất cả interface
     port: 3000,       // Port mặc định
     strictPort: true, // Bắt buộc dùng port này
+    allowedHosts: 'all'  // Cho phép TẤT CẢ host và subdomain
   }
 })
